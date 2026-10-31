@@ -12,14 +12,14 @@ export function getServices(): Service[] { return services; }
 export function getServiceBySlug(slug: string): Service | undefined { return getService(slug); }
 let currentSession: Session | null = null;
 let pendingSession: Promise<Session> | null = null;
-export function resetSession() { currentSession = null; sessionStorage.removeItem('pakassist-session'); }
+export function resetSession() { currentSession = null; sessionStorage.removeItem('raabtaai-session'); }
 export async function createSession(): Promise<Session> {
   if (currentSession) return currentSession;
-  const saved = sessionStorage.getItem('pakassist-session');
+  const saved = sessionStorage.getItem('raabtaai-session');
   if (saved) { currentSession = { id: saved, createdAt: '' }; return currentSession; }
   if (!pendingSession) pendingSession = apiRequest('/sessions', jsonPost()).then(r => r.json()).then(data => {
     currentSession = { id: data.session_id, createdAt: new Date().toISOString() };
-    sessionStorage.setItem('pakassist-session', currentSession.id);
+    sessionStorage.setItem('raabtaai-session', currentSession.id);
     return currentSession;
   }).finally(() => { pendingSession = null; });
   return pendingSession;

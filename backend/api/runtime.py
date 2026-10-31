@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from langgraph.checkpoint.memory import InMemorySaver
 
 from backend.graph.graph import build_graph
-from backend.graph.state import PakAssistState
+from backend.graph.state import RaabtaAIState
 
 
 load_dotenv()
@@ -29,7 +29,7 @@ def invoke_graph(
         }
     }
 
-    turn_state: PakAssistState = {
+    turn_state: RaabtaAIState = {
         "user_input": message,
         "uploaded_files": uploaded_files,
         "sources": [],

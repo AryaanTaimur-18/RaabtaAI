@@ -1,5 +1,6 @@
 import io
 import os
+import re
 import shutil
 import tempfile
 import wave
@@ -32,8 +33,8 @@ ALLOWED_EXTENSIONS = {
 
 
 app = FastAPI(
-    title="PakAssist API",
-    description="HTTP API for the PakAssist LangGraph backend",
+    title="RaabtaAI API",
+    description="HTTP API for the RaabtaAI LangGraph backend",
     version="1.0.0",
 )
 
@@ -87,6 +88,52 @@ def _tts_wav(response):
             audio.writeframes(data)
         return output.getvalue()
     raise ValueError("Provider returned no audio")
+
+
+def _hardcoded_response(message: str) -> str | None:
+    """Return fixed responses for the specific demo questions the user requested."""
+    normalized = re.sub(r"[^a-z0-9\s]", " ", message.lower())
+    normalized = re.sub(r"\s+", " ", normalized).strip()
+
+    if not normalized:
+        return None
+
+    passport_doc_keywords = (
+        "passport" in normalized
+        and ("what" in normalized or "which" in normalized)
+        and ("document" in normalized or "documents" in normalized)
+        and ("need" in normalized or "require" in normalized)
+    )
+    if passport_doc_keywords:
+        return (
+            "For a standard adult passport, you usually need: original CNIC, a photocopy of the CNIC, "
+            "recent passport-size photographs, and your old passport if you are renewing. For minors, "
+            "add the child’s birth certificate and both parents’ CNIC copies."
+        )
+
+    passport_fee_keywords = (
+        "passport" in normalized
+        and ("how much" in normalized or "cost" in normalized or "fee" in normalized or "price" in normalized)
+    )
+    if passport_fee_keywords:
+        return (
+            "A standard 36-page passport typically costs PKR 3,000. A 60-page passport typically costs PKR 5,000. "
+            "These are fixed example values for this demo."
+        )
+
+    driving_lahore_keywords = (
+        "driving" in normalized
+        and "lahore" in normalized
+        and "office" in normalized
+        and ("find" in normalized or "where" in normalized or "location" in normalized)
+    )
+    if driving_lahore_keywords:
+        return (
+            "A main driving licence office in Lahore is the Manawan Traffic Police Lines / Police Training College, "
+            "Manawan, Lahore."
+        )
+
+    return None
 
 
 def _generate_speech(text, api_key):
@@ -202,6 +249,14 @@ async def chat(request: ChatRequest):
             detail="Message cannot be empty",
         )
 
+    hardcoded = _hardcoded_response(request.message)
+    if hardcoded is not None:
+        return {
+            "session_id": request.session_id,
+            "response": hardcoded,
+            "sources": [],
+        }
+
     is_first_turn = (
         request.session_id not in sessions_with_messages
     )
@@ -223,11 +278,11 @@ async def chat(request: ChatRequest):
         ) from exc
 
     except Exception as exc:
-        print("PakAssist chat error:", exc)
+        print("RaabtaAI chat error:", exc)
 
         raise HTTPException(
             status_code=500,
-            detail="PakAssist failed to process the request",
+            detail="RaabtaAI failed to process the request",
         ) from exc
 
     sessions_with_messages.add(
@@ -322,11 +377,11 @@ async def upload_file(
         ) from exc
 
     except Exception as exc:
-        print("PakAssist upload error:", exc)
+        print("RaabtaAI upload error:", exc)
 
         raise HTTPException(
             status_code=500,
-            detail="PakAssist failed to process the uploaded file",
+            detail="RaabtaAI failed to process the uploaded file",
         ) from exc
 
     finally:

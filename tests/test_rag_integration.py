@@ -1,5 +1,5 @@
 """
-Integration tests for PakAssist LangGraph workflow with Multimodal RAG.
+Integration tests for RaabtaAI LangGraph workflow with Multimodal RAG.
 
 Tests all 6 core integration scenarios:
 1. Driving license query -> Planner -> Knowledge route -> Knowledge Agent -> RAG retrieval -> Grounded response.
@@ -16,7 +16,7 @@ import pytest
 from backend.agents.knowledge import NO_CONTEXT_MESSAGE
 from backend.agents.planner import PlannerOutput
 from backend.graph.graph import build_graph
-from backend.graph.state import PakAssistState
+from backend.graph.state import RaabtaAIState
 
 
 @pytest.fixture(scope="module")
@@ -35,7 +35,7 @@ def test_1_driving_license_knowledge_flow(mock_gemini_call, mock_planner, app_gr
     )
     mock_gemini_call.return_value = "Learner permit, CNIC, and medical certificate are required."
 
-    initial_state: PakAssistState = {
+    initial_state: RaabtaAIState = {
         "user_input": "What documents are required for a driving license?",
         "intent": "",
         "service_type": "",
@@ -65,7 +65,7 @@ def test_2_passport_requirements_flow(mock_gemini_call, mock_planner, app_graph)
     )
     mock_gemini_call.return_value = "You need CNIC/NICOP and previous passport if renewing."
 
-    initial_state: PakAssistState = {
+    initial_state: RaabtaAIState = {
         "user_input": "What are the requirements for a Pakistani passport?",
         "intent": "",
         "service_type": "",
@@ -94,7 +94,7 @@ def test_3_unknown_request_fallback(mock_gemini_call, mock_planner, app_graph):
     )
 
     # Even if next_step is knowledge, if intent/service_type is unknown it routes to clarification
-    initial_state: PakAssistState = {
+    initial_state: RaabtaAIState = {
         "user_input": "What is the best recipe for biryani?",
         "intent": "",
         "service_type": "",
@@ -120,7 +120,7 @@ def test_3b_unknown_request_routed_to_knowledge_returns_no_context(mock_gemini_c
     )
     mock_get_retriever.return_value.retrieve.return_value = []
 
-    initial_state: PakAssistState = {
+    initial_state: RaabtaAIState = {
         "user_input": "What is the best recipe for chicken karahi?",
         "intent": "",
         "service_type": "",
@@ -152,7 +152,7 @@ def test_4_image_handling_flow(mock_knowledge_gemini, mock_extract_image, mock_p
     mock_extract_image.return_value = "Learner permit token number 48291 expires next month."
     mock_knowledge_gemini.return_value = "Your token number is 48291 expiring next month."
 
-    initial_state: PakAssistState = {
+    initial_state: RaabtaAIState = {
         "user_input": "What is the learner permit token number in my upload?",
         "intent": "",
         "service_type": "",
@@ -193,7 +193,7 @@ def test_5_pdf_handling_flow(mock_knowledge_gemini, mock_planner, app_graph, tmp
 
     mock_knowledge_gemini.return_value = "Urgent delivery takes 3 working days."
 
-    initial_state: PakAssistState = {
+    initial_state: RaabtaAIState = {
         "user_input": "How many days for urgent delivery in this document?",
         "intent": "",
         "service_type": "",

@@ -21,7 +21,7 @@
 
 ## 1. Overview
 
-There is no single "Pakistani driving license" system — each province/territory runs its own licensing authority, online portal, fee schedule, and waiting periods. The PakAssist agent should always ask the user which province/city they are in before giving process or fee details, since answers genuinely differ.
+There is no single "Pakistani driving license" system — each province/territory runs its own licensing authority, online portal, fee schedule, and waiting periods. The RaabtaAI agent should always ask the user which province/city they are in before giving process or fee details, since answers genuinely differ.
 
 ## 2. License Categories (broadly consistent nationwide)
 
@@ -60,7 +60,7 @@ Multiple non-government aggregator sites report different numbers for the same l
 - Genuine year-to-year fee revisions that different articles captured at different times, and/or
 - Some aggregator sites simply being inaccurate or outdated.
 
-**Recommendation for the PakAssist agent:** Do not quote a single "official" fee number for driving licenses unless it has been independently confirmed directly on the relevant government portal (`dlims.punjab.gov.pk`, `dlsonline.sindhpolice.gov.pk`, `islamabadpolice.gov.pk/itp`) at response time, or the QA team has verified it against an official notification/screenshot. Where exact figures can't be confirmed, give the user a rough range and direct them to generate their PSID on the official portal, where the exact current fee is always shown before payment.
+**Recommendation for the RaabtaAI agent:** Do not quote a single "official" fee number for driving licenses unless it has been independently confirmed directly on the relevant government portal (`dlims.punjab.gov.pk`, `dlsonline.sindhpolice.gov.pk`, `islamabadpolice.gov.pk/itp`) at response time, or the QA team has verified it against an official notification/screenshot. Where exact figures can't be confirmed, give the user a rough range and direct them to generate their PSID on the official portal, where the exact current fee is always shown before payment.
 
 Indicative (unverified) ranges seen across multiple sources, for context only:
 - Learner permit: roughly Rs. 60–1,000 depending on province.

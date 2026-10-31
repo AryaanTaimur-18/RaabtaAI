@@ -22,7 +22,7 @@ from pathlib import Path
 from typing import List
 
 from backend.graph import state
-from backend.graph.state import PakAssistState, SourceRef
+from backend.graph.state import RaabtaAIState, SourceRef
 from backend.rag.loader import RagDocument
 from backend.rag.multimodal import extract_text_from_image, extract_text_from_pdf
 from backend.rag.retriever import Retriever, RetrievedChunk
@@ -86,7 +86,7 @@ _UPLOAD_INSPECTION_TERMS = (
     "what is in",
 )
 
-_GENERATION_SYSTEM_PROMPT = """You are PakAssist's Knowledge answer generator.
+_GENERATION_SYSTEM_PROMPT = """You are RaabtaAI's Knowledge answer generator.
 
 Conversation behavior:
 - Greet the user only at the beginning of a new conversation, not on every reply.
@@ -273,8 +273,8 @@ def is_upload_inspection_request(query: str) -> bool:
 
 
 def knowledge_agent(
-    state: PakAssistState, *, thread_id: str | None = None
-) -> PakAssistState:
+    state: RaabtaAIState, *, thread_id: str | None = None
+) -> RaabtaAIState:
     """Entry point — wire this in as the real "knowledge" node in graph.py."""
     query = state.get("user_input", "").strip()
     if not query:

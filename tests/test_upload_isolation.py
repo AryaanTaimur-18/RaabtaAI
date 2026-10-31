@@ -43,7 +43,7 @@ def test_same_thread_upload_is_retrievable_with_source(_embed):
         patch("backend.agents.knowledge._get_retriever", return_value=retriever),
         patch(
             "backend.agents.knowledge._extract_uploaded_files",
-            return_value=[_upload_document("PAKASSIST-THREAD-A-48291")],
+            return_value=[_upload_document("RAABTAAI-THREAD-A-48291")],
         ),
         patch("backend.agents.knowledge._call_gemini", return_value="48291"),
     ):
@@ -73,7 +73,7 @@ def test_same_thread_upload_is_retrievable_with_source(_embed):
 def test_cross_thread_upload_isolation(_embed):
     retriever = Retriever(FaissVectorStore())
     retriever.add_user_content(
-        [_upload_document("PAKASSIST-THREAD-A-48291")], thread_id="thread-a"
+        [_upload_document("RAABTAAI-THREAD-A-48291")], thread_id="thread-a"
     )
 
     assert retriever.retrieve("48291", thread_id="thread-b") == []

@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
-from backend.graph.state import PakAssistState, SourceRef
+from backend.graph.state import RaabtaAIState, SourceRef
 from backend.services.appointment_simulator import (
     AppointmentResult,
     book_slot,
@@ -55,7 +55,7 @@ _ORDINALS = {
 }
 
 
-def _requested_action(state: PakAssistState) -> str | None:
+def _requested_action(state: RaabtaAIState) -> str | None:
     intent = state.get("intent", "").casefold()
     query = state.get("user_input", "").casefold()
     if is_journey_request(intent, query):
@@ -166,7 +166,7 @@ def _normalize(value: str) -> str:
 
 
 def _resolve_office_reference(
-    state: PakAssistState,
+    state: RaabtaAIState,
 ) -> tuple[str | None, bool]:
     query = _normalize(state.get("user_input", ""))
     options = state.get("office_options") or []
@@ -215,7 +215,7 @@ def _invalid_office_reference_response(options: list[str], language: str) -> str
     return message("invalid_office", language, count=count)
 
 
-def _find_appointment_office(state: PakAssistState) -> tuple[str | None, dict | None]:
+def _find_appointment_office(state: RaabtaAIState) -> tuple[str | None, dict | None]:
     language = state.get("preferred_language", "english")
     current_lookup = lookup_service_centers(
         state.get("service_type", "unknown"), state.get("user_input", "")
@@ -356,7 +356,7 @@ def _booking_response(
     )
 
 
-def _run_service_center_lookup(state: PakAssistState) -> dict:
+def _run_service_center_lookup(state: RaabtaAIState) -> dict:
     language = state.get("preferred_language", "english")
     result = lookup_service_centers(
         state.get("service_type", "unknown"), state.get("user_input", "")
@@ -379,7 +379,7 @@ def _run_service_center_lookup(state: PakAssistState) -> dict:
     return update
 
 
-def _run_check_slots(state: PakAssistState) -> dict:
+def _run_check_slots(state: RaabtaAIState) -> dict:
     language = state.get("preferred_language", "english")
     office, clarification = _find_appointment_office(state)
     if clarification:
@@ -409,7 +409,7 @@ def _run_check_slots(state: PakAssistState) -> dict:
     return update
 
 
-def _run_book_slot(state: PakAssistState) -> dict:
+def _run_book_slot(state: RaabtaAIState) -> dict:
     language = state.get("preferred_language", "english")
     office, clarification = _find_appointment_office(state)
     if clarification:
@@ -460,7 +460,7 @@ def _run_book_slot(state: PakAssistState) -> dict:
     return update
 
 
-def action_agent(state: PakAssistState) -> dict:
+def action_agent(state: RaabtaAIState) -> dict:
     """Dispatch the action requested by the Planner to a supported action."""
     action = _requested_action(state)
     if action == "service_center_lookup":

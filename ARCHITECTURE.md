@@ -1,8 +1,8 @@
-# PakAssist - Architecture
+# RaabtaAI - Architecture
 
 ## Implementation Status
 
-PakAssist is a backend-only, multi-turn CLI assistant built on LangGraph. Its
+RaabtaAI is a backend-only, multi-turn CLI assistant built on LangGraph. Its
 implemented capabilities are:
 
 - Gemini-backed structured planning;
@@ -78,7 +78,7 @@ The entry point is repository-root `main.py`; there is no `backend/main.py`.
 
 1. compiles the graph with LangGraph `InMemorySaver`;
 2. creates one random UUID thread ID for the conversation;
-3. repeatedly reads input from `PakAssist>`;
+3. repeatedly reads input from `RaabtaAI>`;
 4. invokes the graph with the same thread ID on each turn;
 5. prints the response and available source labels, origins, and confidence;
 6. ignores blank input; and
@@ -125,7 +125,7 @@ history.
 
 ## Shared State
 
-`backend/graph/state.py` defines `PakAssistState` as
+`backend/graph/state.py` defines `RaabtaAIState` as
 `TypedDict(total=False)` with exactly these fields:
 
 | Field | Purpose |

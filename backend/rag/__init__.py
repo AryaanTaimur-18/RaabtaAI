@@ -1,1 +1,1 @@
-"""PakAssist Multimodal RAG subsystem."""
+"""RaabtaAI Multimodal RAG subsystem."""

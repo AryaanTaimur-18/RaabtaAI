@@ -31,7 +31,7 @@ def provider(monkeypatch):
     return factory
 
 
-@pytest.mark.parametrize('text', ['Hello, welcome to PakAssist.', 'Assalam o alaikum, aap ka CNIC tayyar hai.'])
+@pytest.mark.parametrize('text', ['Hello, welcome to RaabtaAI.', 'Assalam o alaikum, aap ka CNIC tayyar hai.'])
 def test_tts_pcm_is_playable_wav(provider, text):
     response = TestClient(api.app).post('/voice/tts', json={'text': ' ' + text + ' '})
     assert response.status_code == 200

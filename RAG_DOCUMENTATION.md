@@ -1,18 +1,18 @@
-# PakAssist Multimodal RAG — Developer Documentation
+# RaabtaAI Multimodal RAG — Developer Documentation
 
 This document explains what the RAG (Retrieval-Augmented Generation) system
 in this delivery does, how its pieces fit together, and how to run/extend
-it. It covers the `pakassist_rag` package as delivered, before the
+it. It covers the `raabtaai_rag` package as delivered, before the
 project-specific integration edits (renaming `user_query`→`user_input`,
 `knowledge_response`→`response`, switching to the `google-genai` client)
-that were applied on top when merging into the real PakAssist repo. Folder
+that were applied on top when merging into the real RaabtaAI repo. Folder
 structure and file purposes below match the delivered zip.
 
 ---
 
 ## 1. What this system does
 
-PakAssist's Knowledge route needs to answer citizen questions about
+RaabtaAI's Knowledge route needs to answer citizen questions about
 government services (e.g. "what documents do I need for a driving
 license?") **grounded in trusted sources**, not the model's general
 knowledge. This package implements that: it turns a folder of Markdown
@@ -31,7 +31,7 @@ out of scope for this milestone.
 ## 2. Folder structure
 
 ```text
-pakassist_rag/
+raabtaai_rag/
 ├── .env.example                  # template for required environment variables
 ├── README.md                     # setup/usage quick-start
 ├── requirements.txt              # minimal dependency list
@@ -190,7 +190,7 @@ project's existing AFC fix.
 | `backend/rag/multimodal.py` | Gemini image understanding + PyMuPDF/Gemini PDF text extraction | `extract_text_from_image()`, `extract_text_from_pdf()` |
 | `backend/rag/retriever.py` | Combines the persisted KB store with an ephemeral per-session user-upload store; applies `min_score` filtering | `Retriever`, `RetrievedChunk` |
 | `backend/agents/knowledge.py` | The Knowledge Agent: orchestrates retrieval + uploaded-file ingestion + grounded generation; owns the no-hallucination fallback | `knowledge_agent()` |
-| `backend/graph/state.py` | Shared `TypedDict` state contract | `PakAssistState`, `SourceRef` |
+| `backend/graph/state.py` | Shared `TypedDict` state contract | `RaabtaAIState`, `SourceRef` |
 
 ---
 
@@ -245,7 +245,7 @@ None of these are hardcoded anywhere in the code — all read via `os.getenv`.
 `backend/agents/planner.py` and `backend/graph/graph.py` in this delivery
 are **minimal mocks**, built only so the Knowledge Agent could be
 demonstrated wired into a Planner → routing → agent flow without access to
-the real PakAssist Planner/graph code. They are **not** meant to be merged
+the real RaabtaAI Planner/graph code. They are **not** meant to be merged
 into the real project — the real repo already has its own `planner.py`
 and `graph.py`; only `backend/agents/knowledge.py` needs to be added as a
 new node function there, and `backend/graph/state.py` needs one new field

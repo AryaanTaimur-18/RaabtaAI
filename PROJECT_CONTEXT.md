@@ -1,8 +1,8 @@
-# PakAssist - Project Context for AI Coding Agents
+# RaabtaAI - Project Context for AI Coding Agents
 
 ## Purpose and Current Status
 
-PakAssist is a backend-only, multi-turn LangGraph CLI for Pakistani passport
+RaabtaAI is a backend-only, multi-turn LangGraph CLI for Pakistani passport
 and driving-license assistance. Treat repository code as the source of truth.
 
 Completed capabilities:
@@ -59,7 +59,7 @@ Knowledge branch but do not invoke RAG.
 - `main.py`: multi-turn CLI loop, `InMemorySaver`, UUID thread ID, optional
   first-turn uploads, source display, and `exit`/`quit` handling.
 - `backend/graph/graph.py`: contextual continuation, nodes, and routing.
-- `backend/graph/state.py`: `PakAssistState`, `SourceRef`, and
+- `backend/graph/state.py`: `RaabtaAIState`, `SourceRef`, and
   `JourneyProgress`.
 - `backend/agents/planner.py`: validated `intent`, `service_type`, and
   `next_step` classification.
@@ -87,7 +87,7 @@ There is no `backend/main.py`; the entry point is root `main.py`.
 
 ## Current State Contract
 
-`PakAssistState` is `TypedDict(total=False)` with only:
+`RaabtaAIState` is `TypedDict(total=False)` with only:
 
 - `user_input: str`
 - `intent: str`

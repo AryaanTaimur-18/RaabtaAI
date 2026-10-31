@@ -19,7 +19,7 @@ class JourneyProgress(TypedDict, total=False):
     appointment: str
 
 
-class PakAssistState(TypedDict, total=False):
+class RaabtaAIState(TypedDict, total=False):
     user_input: str
     intent: str
     service_type: str

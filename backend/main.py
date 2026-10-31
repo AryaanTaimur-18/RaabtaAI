@@ -1,4 +1,4 @@
-"""PakAssist multi-turn CLI entry point."""
+"""RaabtaAI multi-turn CLI entry point."""
 import sys
 from uuid import uuid4
 
@@ -7,7 +7,7 @@ from langgraph.checkpoint.memory import InMemorySaver
 
 from backend.agents.planner import PlannerError
 from backend.graph.graph import build_graph
-from backend.graph.state import PakAssistState
+from backend.graph.state import RaabtaAIState
 
 load_dotenv()
 
@@ -20,7 +20,7 @@ def run_cli(uploaded_files=None, input_fn=input, output_fn=print):
 
     while True:
         try:
-            user_input = input_fn("PakAssist> ")
+            user_input = input_fn("RaabtaAI> ")
         except EOFError:
             output_fn("\nGoodbye.")
             break
@@ -31,7 +31,7 @@ def run_cli(uploaded_files=None, input_fn=input, output_fn=print):
         if not user_input.strip():
             continue
 
-        turn_state: PakAssistState = {
+        turn_state: RaabtaAIState = {
             "user_input": user_input,
             "uploaded_files": uploaded_files if first_turn else None,
             "sources": [],
@@ -44,7 +44,7 @@ def run_cli(uploaded_files=None, input_fn=input, output_fn=print):
             first_turn = False
             continue
 
-        output_fn("\nPakAssist:")
+        output_fn("\nRaabtaAI:")
         output_fn(result.get("response", ""))
         sources = result.get("sources")
         if sources:

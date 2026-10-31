@@ -1,4 +1,4 @@
-"""LangGraph workflow for PakAssist."""
+"""LangGraph workflow for RaabtaAI."""
 import re
 from langgraph.graph import StateGraph, START, END
 from langchain_core.runnables import RunnableConfig
@@ -6,7 +6,7 @@ from langchain_core.runnables import RunnableConfig
 from backend.agents.action import action_agent
 from backend.agents.knowledge import is_upload_inspection_request, knowledge_agent
 from backend.agents.planner import run_planner
-from backend.graph.state import PakAssistState
+from backend.graph.state import RaabtaAIState
 from backend.services.fee_lookup import is_fee_request
 from backend.services.checklist_builder import is_checklist_request
 from backend.services.journey import (
@@ -23,7 +23,7 @@ from backend.services.language import (
 )
 
 
-def _planner_context(state: PakAssistState) -> dict:
+def _planner_context(state: RaabtaAIState) -> dict:
     """Expose only useful short-lived state to the Planner."""
     context = {}
     for field in (
@@ -44,7 +44,7 @@ def _planner_context(state: PakAssistState) -> dict:
     return context
 
 
-def _contextual_appointment_intent(state: PakAssistState) -> str | None:
+def _contextual_appointment_intent(state: RaabtaAIState) -> str | None:
     """Recognize generic appointment follow-ups if planning is inconclusive."""
     query = state["user_input"].casefold().strip(" .?!")
     if "book" in query and ("slot" in query or "appointment" in query):
@@ -64,7 +64,7 @@ def _contextual_appointment_intent(state: PakAssistState) -> str | None:
     return None
 
 
-def _planner_node(state: PakAssistState) -> dict:
+def _planner_node(state: RaabtaAIState) -> dict:
     """Runs the Planner Agent and returns only the fields it owns."""
     preferred_language = detect_language(
         state.get("user_input", ""), state.get("preferred_language")
@@ -211,7 +211,7 @@ def _planner_node(state: PakAssistState) -> dict:
     })
 
 
-def _knowledge_node(state: PakAssistState, config: RunnableConfig) -> dict:
+def _knowledge_node(state: RaabtaAIState, config: RunnableConfig) -> dict:
     """Executes the Multimodal RAG Knowledge Agent."""
     if state.get("intent") == "service_journey":
         return {
@@ -223,12 +223,12 @@ def _knowledge_node(state: PakAssistState, config: RunnableConfig) -> dict:
     return knowledge_agent(state, thread_id=thread_id)
 
 
-def _action_node(state: PakAssistState) -> dict:
+def _action_node(state: RaabtaAIState) -> dict:
     """Execute a supported action through the Action Agent."""
     return action_agent(state)
 
 
-def _clarification_node(state: PakAssistState) -> dict:
+def _clarification_node(state: RaabtaAIState) -> dict:
     """Ask for clarification when the request cannot be routed safely."""
     if state.get("intent") == "missing_presentation_context":
         return {"response": "Please provide the information or document you want me to explain."}
@@ -236,13 +236,13 @@ def _clarification_node(state: PakAssistState) -> dict:
     salam = r"(?:assalam\s+walekum|assalamualaikum|assalam o alaikum|salam|salaam|السلام علیکم)"
     greeting_only = re.fullmatch(rf"(?:{salam}|hi|hello|hey)(?:\s+(?:{salam}|hi|hello|hey))*", query)
     if greeting_only and re.search(salam, query):
-        return {"response": "Wa Alaikum Assalam! Main PakAssist hoon. Passport ya driving licence ke bare mein aap ki kya madad kar sakta hoon?"}
+        return {"response": "Wa Alaikum Assalam! Main RaabtaAI hoon. Passport ya driving licence ke bare mein aap ki kya madad kar sakta hoon?"}
     if greeting_only:
         return {"response": "Hello! How can I help you with a passport or driving licence?"}
     return {"response": message("clarify_service", state.get("preferred_language", "english"))}
 
 
-def _route_after_planner(state: PakAssistState) -> str:
+def _route_after_planner(state: RaabtaAIState) -> str:
     """Select a downstream node from the Planner's validated decision."""
     if state["intent"] in {
         "inspect_upload",
@@ -262,8 +262,8 @@ def _route_after_planner(state: PakAssistState) -> str:
 
 
 def build_graph(checkpointer=None):
-    """Build and compile the PakAssist graph."""
-    graph_builder = StateGraph(PakAssistState)
+    """Build and compile the RaabtaAI graph."""
+    graph_builder = StateGraph(RaabtaAIState)
     graph_builder.add_node("planner", _planner_node)
     graph_builder.add_node("knowledge", _knowledge_node)
     graph_builder.add_node("action", _action_node)

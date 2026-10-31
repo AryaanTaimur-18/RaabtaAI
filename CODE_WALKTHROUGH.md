@@ -1,13 +1,13 @@
-# PakAssist Code Walkthrough
+# RaabtaAI Code Walkthrough
 
 This guide is for a developer who understands basic Python and wants a mental
-model of PakAssist without reading every helper function. It follows the code
+model of RaabtaAI without reading every helper function. It follows the code
 that exists today through Milestone 10 and subsequent routing/context fixes,
 including grounded assistance, appointment simulation, and journey tracking.
 
 ## 1. Big Picture
 
-PakAssist is a command-line assistant for Pakistani passport and driving-license
+RaabtaAI is a command-line assistant for Pakistani passport and driving-license
 questions. It can:
 
 - answer questions from a trusted Markdown knowledge base;
@@ -93,7 +93,7 @@ that thread's previous state.
 
 The loop then:
 
-1. reads one line from `PakAssist>`;
+1. reads one line from `RaabtaAI>`;
 2. ignores an empty line;
 3. stops on `exit`, `quit`, or end-of-file;
 4. creates a small turn update containing `user_input`, a fresh empty source
@@ -108,7 +108,7 @@ written into the official persistent index.
 
 ## 3. Shared State - `backend/graph/state.py`
 
-`PakAssistState` is the shared record passed through LangGraph. Each node reads
+`RaabtaAIState` is the shared record passed through LangGraph. Each node reads
 the fields it needs and returns updates for the fields it owns.
 
 The current fields are:
@@ -487,7 +487,7 @@ The update points use capability success signals:
 
 Failures do not advance the corresponding step. Availability checking is an
 intermediate assistance status, not a booking. All wording describes what
-PakAssist reviewed, located, or simulated; it does not claim document
+RaabtaAI reviewed, located, or simulated; it does not claim document
 submission, payment, an office visit, an application, or a real appointment.
 Passport and driving-license entries are stored separately.
 
@@ -764,7 +764,7 @@ module depending on the feature you are changing.
 - Context supports location, office selection, appointment flow, and narrow
   checklist/fee/progress continuation, not general chat memory or unrestricted
   coreference resolution.
-- Journey state tracks PakAssist assistance only and cannot verify submission,
+- Journey state tracks RaabtaAI assistance only and cannot verify submission,
   payment, office visits, application status, or real-world completion.
 - Driving-license numeric fees are not reliable enough to quote.
 - Driving-license center coverage is incomplete.

@@ -256,9 +256,9 @@ _MESSAGES = {
     "journey_booking_done": {"english": "✓ Demo appointment booked", "roman_urdu": "✓ Demo appointment book ho gayi", "urdu": "✓ ڈیمو اپائنٹمنٹ بک ہو گئی"},
     "journey_booking_pending": {"english": "○ Demo appointment not booked yet", "roman_urdu": "○ Demo appointment abhi book nahin hui", "urdu": "○ ڈیمو اپائنٹمنٹ ابھی بک نہیں ہوئی"},
     "journey_disclaimer": {
-        "english": "This tracks assistance provided by PakAssist, not verified government completion.",
-        "roman_urdu": "Yeh PakAssist ki di hui madad track karta hai, verified government completion nahin.",
-        "urdu": "یہ پاک اسسٹ کی فراہم کردہ مدد کو ٹریک کرتا ہے، تصدیق شدہ سرکاری تکمیل کو نہیں۔",
+        "english": "This tracks assistance provided by RaabtaAI, not verified government completion.",
+        "roman_urdu": "Yeh RaabtaAI ki di hui madad track karta hai, verified government completion nahin.",
+        "urdu": "یہ رابطہ AI کی فراہم کردہ مدد کو ٹریک کرتا ہے، تصدیق شدہ سرکاری تکمیل کو نہیں۔",
     },
 }
 

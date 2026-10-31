@@ -1,2 +1,2 @@
-"""Deterministic service integrations used by PakAssist agents."""
+"""Deterministic service integrations used by RaabtaAI agents."""
 

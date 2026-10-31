@@ -70,7 +70,7 @@ test('voice playback preserves the WAV Blob and releases its URL after playback'
   try {
     const {useVoice}=load('services/useVoice.ts',{'react':react,'./api':{synthesizeSpeech:async()=>blob},'./voice':load('services/voice.ts')});
     const voice=useVoice(()=>{},false);
-    await voice.speak('Hello from PakAssist.');
+    await voice.speak('Hello from RaabtaAI.');
     assert.equal(received,blob); assert.equal(received.type,'audio/wav');
     assert.equal(player.src,'blob:test-wav'); assert.equal(played,true);
     player.onended(); assert.equal(revoked,'blob:test-wav'); assert.equal(states[0],'idle');

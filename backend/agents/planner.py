@@ -1,5 +1,5 @@
 """
-Planner Agent for PakAssist.
+Planner Agent for RaabtaAI.
 
 Responsible for interpreting a user's raw input and determining:
 - intent
@@ -60,7 +60,7 @@ class PlannerError(RuntimeError):
     """Raised when the Planner Agent fails to produce valid structured output."""
 
 
-_SYSTEM_PROMPT = """You are the Planner for PakAssist, an assistant that helps
+_SYSTEM_PROMPT = """You are the Planner for RaabtaAI, an assistant that helps
 Pakistani citizens navigate public/government services such as driving licenses,
 passports, and appointments.
 

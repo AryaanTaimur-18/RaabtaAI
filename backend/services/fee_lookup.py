@@ -8,7 +8,7 @@ FEE_NOT_FOUND_MESSAGE = (
     "the current knowledge base."
 )
 
-FEE_SYSTEM_PROMPT = """You are PakAssist's grounded Fee Lookup formatter.
+FEE_SYSTEM_PROMPT = """You are RaabtaAI's grounded Fee Lookup formatter.
 
 Answer using ONLY the retrieved trusted fee context.
 

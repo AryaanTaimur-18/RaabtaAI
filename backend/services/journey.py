@@ -1,10 +1,10 @@
-"""Session-local tracking for PakAssist assistance journeys."""
+"""Session-local tracking for RaabtaAI assistance journeys."""
 
 from __future__ import annotations
 
 from typing import Literal
 
-from backend.graph.state import JourneyProgress, PakAssistState
+from backend.graph.state import JourneyProgress, RaabtaAIState
 from backend.services.language import message
 
 
@@ -40,7 +40,7 @@ def is_service_journey_goal(intent: str) -> bool:
     return intent.casefold() in _SERVICE_JOURNEY_INTENTS
 
 
-def initialize_journey(state: PakAssistState) -> dict[str, JourneyProgress]:
+def initialize_journey(state: RaabtaAIState) -> dict[str, JourneyProgress]:
     """Create an empty service journey without advancing assistance progress."""
     service = state.get("service_type")
     journeys = {
@@ -51,7 +51,7 @@ def initialize_journey(state: PakAssistState) -> dict[str, JourneyProgress]:
     return journeys
 
 
-def journey_orientation(state: PakAssistState) -> str:
+def journey_orientation(state: RaabtaAIState) -> str:
     service = state.get("service_type", "service").replace("_", " ")
     return message(
         "journey_orientation",
@@ -61,7 +61,7 @@ def journey_orientation(state: PakAssistState) -> str:
 
 
 def update_journey(
-    state: PakAssistState,
+    state: RaabtaAIState,
     step: JourneyStep,
     status: str,
     *,
@@ -80,7 +80,7 @@ def update_journey(
     return journeys
 
 
-def journey_summary(state: PakAssistState) -> str:
+def journey_summary(state: RaabtaAIState) -> str:
     service = state.get("service_type", "unknown")
     language = state.get("preferred_language", "english")
     if service in {"", "unknown"}:

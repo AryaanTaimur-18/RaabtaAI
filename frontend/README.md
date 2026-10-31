@@ -1,4 +1,4 @@
-# PakAssist frontend
+# RaabtaAI frontend
 
 The completed React/TypeScript/Vite app. See ../README.md for setup, API contracts and tests.
 

@@ -8,7 +8,7 @@ CHECKLIST_NOT_FOUND_MESSAGE = (
     "current knowledge base."
 )
 
-CHECKLIST_SYSTEM_PROMPT = """You are PakAssist's Checklist Builder.
+CHECKLIST_SYSTEM_PROMPT = """You are RaabtaAI's Checklist Builder.
 
 Use ONLY the retrieved trusted context. Transform its required-document or
 what-to-bring information into a concise actionable checklist.

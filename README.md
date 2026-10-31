@@ -1,6 +1,6 @@
-﻿# PakAssist
+﻿# RaabtaAI
 
-PakAssist is an agentic AI civic-service assistant that helps Pakistani citizens navigate Passport and Driving Licence services through conversation. Government information is often scattered across portals and documents; PakAssist brings curated guidance, document inspection and office lookup into one English/Urdu interface, with Roman Urdu conversation and optional voice interaction.
+RaabtaAI is an agentic AI civic-service assistant that helps Pakistani citizens navigate Passport and Driving Licence services through conversation. Government information is often scattered across portals and documents; RaabtaAI brings curated guidance, document inspection and office lookup into one English/Urdu interface, with Roman Urdu conversation and optional voice interaction.
 
 This is a hackathon prototype for guidance, not a government portal. It does not submit applications or make real bookings.
 
@@ -57,7 +57,7 @@ Memory is process-local, not a persistent account. A backend restart clears sess
 ## Project Structure
 
 ```text
-PakAssist/
+RaabtaAI/
 |-- backend/
 |   |-- api/             # FastAPI routes, schemas, session runtime
 |   |-- agents/          # Planner, Knowledge and Action agents
@@ -87,8 +87,8 @@ PakAssist/
 Run these commands in Windows PowerShell. If you already have the repository, start from its root instead of cloning again.
 
 ```powershell
-git clone https://github.com/Usman-Khan22/PakAssist.git
-cd PakAssist
+git clone https://github.com/Usman-Khan22/RaabtaAI.git
+cd RaabtaAI
 python -m venv venv
 .\venv\Scripts\python.exe -m pip install -r requirements.txt
 npm.cmd ci --prefix frontend
@@ -132,7 +132,7 @@ The generated index is Git-ignored, so build it before using RAG on a fresh chec
 
 This loads Markdown from `KB_DIR`, embeds its chunks and writes `index.faiss` and `store.pkl` under `KB_INDEX_DIR`. The first run may download the embedding model. Repeat after Markdown or embedding-model changes, then restart the backend. Office JSON changes do not need an embedding rebuild.
 
-## Running PakAssist
+## Running RaabtaAI
 
 Run both commands from the repository root in **separate terminals**, and keep both terminals running.
 

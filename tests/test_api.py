@@ -280,6 +280,36 @@ def test_upload_success(
     )
 
 
+def test_chat_hardcoded_answers():
+
+    session_id = create_session()
+
+    for message, expected in [
+        (
+            "What documents do I need for a passport?",
+            "For a standard adult passport, you usually need",
+        ),
+        (
+            "How much does a passport cost?",
+            "36-page passport typically costs",
+        ),
+        (
+            "Find a driving licence office in Lahore",
+            "Manawan Traffic Police Lines / Police Training College",
+        ),
+    ]:
+        response = client.post(
+            "/chat",
+            json={
+                "session_id": session_id,
+                "message": message,
+            },
+        )
+
+        assert response.status_code == 200
+        assert expected in response.json()["response"]
+
+
 def test_chat_internal_error_is_safe(
     monkeypatch,
 ):
@@ -311,7 +341,7 @@ def test_chat_internal_error_is_safe(
 
     assert (
         data["detail"]
-        == "PakAssist failed to process the request"
+        == "RaabtaAI failed to process the request"
     )
 
     assert (
