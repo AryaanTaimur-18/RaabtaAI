@@ -87,7 +87,7 @@ RaabtaAI/
 Run these commands in Windows PowerShell. If you already have the repository, start from its root instead of cloning again.
 
 ```powershell
-git clone https://github.com/Usman-Khan22/RaabtaAI.git
+git clone https://github.com/AryaanTaimur-18/RaabtaAI.git
 cd RaabtaAI
 python -m venv venv
 .\venv\Scripts\python.exe -m pip install -r requirements.txt
